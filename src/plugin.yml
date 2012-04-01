@@ -1,0 +1,11 @@
+name: XPBank
+version: 1.4.2
+main: fr.yamakaky.pluginxpbank.Main
+author: Yamakaky
+permissions:
+  xpbank.use:
+    description: donne la permission d'utiliser les panneaux a xp
+    default: true
+  xpbank.place:
+    description: donne la permission de modifier les panneaux a xp
+    default: op
