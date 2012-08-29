@@ -19,17 +19,20 @@ public class ConfigManager {
 	private static FileConfiguration file = Main.main.getConfig();
 	private static String pathCompte = "Comptes.";
 	private static String pathLoc = "Locations.";
+	private static String pathDelay = "Delai";
 
 	public static void RetirerXP(Player p)
 	{
-		if (file.contains(pathCompte + p.getName()))
+		if (!file.contains(pathCompte + p.getName()))
+			Main.SendMsgError(p, "Vous n'avez plus d'xp sur votre compte");
+		else if (!TimeManager.canAccess(p))
+			Main.SendMsgError(p, "Vous devez attendre avant de pouvoir utiliser votre compte");
+		else
 		{
 			p.giveExp(file.getInt(pathCompte + p.getName()));
 			file.set(pathCompte + p.getName(), null);
 			Main.SendMsg(p, "XP retiré de votre compte");
 		}
-		else
-			Main.SendMsgError(p, "Vous n'avez plus d'xp sur votre compte");
 		
 		Main.main.saveConfig();
 	}
@@ -41,6 +44,11 @@ public class ConfigManager {
 		if (xp == 0)
 		{
 			Main.SendMsgError(p, "Vous n'avez pas d'xp à déposer");
+			return;
+		}
+		else if (!TimeManager.canAccess(p))
+		{
+			Main.SendMsgError(p, "Vous devez attendre avant de pouvoir utiliser votre compte");
 			return;
 		}
 		
@@ -68,10 +76,18 @@ public class ConfigManager {
 	private static int totalXP(Player player)
 	{
 		int level = player.getLevel();
-		float percent = player.getExp();
+		long xp = 0;
 		 
-		int xp = (int) Math.round(1.75*Math.pow(level, 2) + 5*level + percent*(3.5*level + 6.7));//3.5F*level*(level + 1) + (level + 1)*7*percent;
-		return xp;
+		if (level < 17)
+			xp = (17*level);
+		
+		else if (level >= 17 && level <= 30)
+			xp = Math.round(272+1.5*(level-16)*(level-16)+18.5*(level-16)) + 1;
+			
+		else if (level > 30)
+			xp = Math.round(level*17 + (level-16)*(level-15)*1.5 + (level-31)*(level-30)*2) + 1;
+		
+		return (int) xp;
 	}
 	
 	public static Set<Location> loadLocations()
@@ -134,5 +150,10 @@ public class ConfigManager {
 			}
 		} catch (Exception e) {}
 		return false;
+	}
+
+	public static long getDelay()
+	{
+		return file.getInt(pathDelay);
 	}
 }

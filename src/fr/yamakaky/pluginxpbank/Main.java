@@ -13,11 +13,14 @@ public class Main extends JavaPlugin {
 	{
 		main = this;
 		this.getServer().getPluginManager().registerEvents(new BankListener(), this);
+		if (!this.getConfig().contains("Delai"))
+			this.getConfig().set("Delai",0);
 		if (!this.getConfig().contains("Comptes"))
 			this.getConfig().createSection("Comptes");
 		if (!this.getConfig().contains("Locations"))
 			this.getConfig().createSection("Locations");
 		SignManager.init();
+		TimeManager.init();
 		this.saveConfig();
 	}
 
