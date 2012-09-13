@@ -1,5 +1,6 @@
 package fr.yamakaky.pluginxpbank;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -18,9 +19,13 @@ public class BankListener implements Listener {
 	@EventHandler
 	public void onSignChange (SignChangeEvent e)
 	{
-		if (e.getLine(0).equalsIgnoreCase("[XPBank]") && e.getPlayer().hasPermission("xpbank.place"))
-			if (SignManager.registerSign(e.getBlock().getLocation()))
-				Main.SendMsg(e.getPlayer(), "Panneau à XP posé !");
+		if (e.getLine(0).equalsIgnoreCase("[XPBank]") && e.getPlayer().hasPermission("xpbank.place") && SignManager.registerSign(e.getBlock().getLocation())) {
+            e.setLine(0, ChatColor.DARK_BLUE + "[Banque à XP]");
+            e.setLine(1, ChatColor.YELLOW + "" + ConfigManager.nombreComptes() + ChatColor.GREEN + " comptes");
+            e.setLine(2, ChatColor.GREEN + "Total XP :");
+            e.setLine(3, ChatColor.YELLOW + "" + ConfigManager.totalXP());
+            Main.SendMsg(e.getPlayer(), "Panneau à XP posé !");
+        }
 	}
 	
 	@EventHandler
