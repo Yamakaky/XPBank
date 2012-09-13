@@ -19,7 +19,8 @@ public class BankListener implements Listener {
 	public void onSignChange (SignChangeEvent e)
 	{
 		if (e.getLine(0).equalsIgnoreCase("[XPBank]") && e.getPlayer().hasPermission("xpbank.place"))
-			SignManager.registerSign(e.getBlock().getLocation());
+			if (SignManager.registerSign(e.getBlock().getLocation()))
+				Main.SendMsg(e.getPlayer(), "Panneau à XP posé !");
 	}
 	
 	@EventHandler

@@ -56,15 +56,15 @@ public class SignManager {
 	}
 
 	// Récupération du Relative et ajout du SignManager dans le Set
-	public static void registerSign(Location locsign) {
+	public static boolean registerSign(Location locsign) {
 		try {
 			locsign.getBlock();
 		} catch (Exception e) {
-			return;
+			return false;
 		} // Vérifie sur la locsign est un block
 
 		if (!(locsign.getBlock().getState() instanceof org.bukkit.block.Sign))
-			return;
+			return false;
 
 		Block bs = locsign.getBlock();
 		org.bukkit.material.Sign signmat = (org.bukkit.material.Sign) bs.getState().getData();
@@ -87,6 +87,7 @@ public class SignManager {
 
 		SignManager sm = new SignManager(locsign, relative);
 		sm.RefreshSign();
+		return true;
 	}
 
 	// Mise à jour du panneau de l'objet SignManager
