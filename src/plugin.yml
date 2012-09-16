@@ -4,8 +4,8 @@ main: fr.yamakaky.pluginxpbank.Main
 author: Yamakaky
 permissions:
   xpbank.use:
-    description: donne la permission d'utiliser les panneaux a xp
+    description: give the permission to use an xp bank sign
     default: true
   xpbank.place:
-    description: donne la permission de modifier les panneaux a xp
+    description: give the permission to create an xp bank sign
     default: op

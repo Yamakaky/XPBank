@@ -47,7 +47,7 @@ public class SignManager {
 		return listeSigns;
 	}
 
-	// Retourne le Relative du block.location en paramettre.
+	// Return Relative of Block.location in parameter.
 	public static Location getRelative(Location signloc) {
 		for (SignManager sm : liste)
 			if (sm.sign == signloc)
@@ -55,13 +55,13 @@ public class SignManager {
 		return null;
 	}
 
-	// Récupération du Relative et ajout du SignManager dans le Set
+	// Recovery of Relative and adding of SignManager in the Set.
 	public static boolean registerSign(Location locsign) {
 		try {
 			locsign.getBlock();
 		} catch (Exception e) {
 			return false;
-		} // Vérifie sur la locsign est un block
+		} // Verify on the locsign is a block
 
 		if (!(locsign.getBlock().getState() instanceof org.bukkit.block.Sign))
 			return false;
@@ -90,10 +90,10 @@ public class SignManager {
 		return true;
 	}
 
-	// Mise à jour du panneau de l'objet SignManager
+	// Up to date of the sign of object SignManager
 	public void RefreshSign() {
 		Sign sign = (Sign) this.sign.getBlock().getState();
-		sign.setLine(0, ChatColor.DARK_BLUE + "[Banque à XP]");
+		sign.setLine(0, ChatColor.DARK_BLUE + "[XP Banque]");
 		sign.setLine(1, ChatColor.YELLOW + "" + ConfigManager.nombreComptes() + ChatColor.GREEN + " comptes");
 		sign.setLine(2, ChatColor.GREEN + "Total XP :");
 		sign.setLine(3, ChatColor.YELLOW + "" + ConfigManager.totalXP());
@@ -105,7 +105,7 @@ public class SignManager {
 			try{ sm.RefreshSign(); } catch (Exception e) {}
 	}
 
-	// Methode sécurisée pour enlever un SignManager du Set
+	// Securisated Methode to delete a SignManager of the Set
 	public static void removeSignAndRelative(Location loc) {
 		for (SignManager sm : liste)
 			if (sm.sign.equals(loc) || sm.relative.equals(loc))

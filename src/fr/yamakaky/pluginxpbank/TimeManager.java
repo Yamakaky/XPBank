@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 
 public class TimeManager {
 
-	static Map<String,Long> map = new HashMap<String, Long>(); // associe à un joueur la dernière date en temps unix où il a déposé/retiré des xp
+	static Map<String,Long> map = new HashMap<String, Long>(); // associates to a player the last date in time unix where he has withrawn/deposited xp points
 	static long delay;
 	
 	public static void init()
@@ -17,7 +17,7 @@ public class TimeManager {
 	}
 	
 	/*
-	 * renvoie false si 
+	 * returns false if 
 	 */
 	public static boolean canAccess(Player p)
 	{

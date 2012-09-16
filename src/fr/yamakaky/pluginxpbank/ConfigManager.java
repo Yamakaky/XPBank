@@ -17,21 +17,21 @@ import org.bukkit.entity.Player;
 public class ConfigManager {
 	
 	private static FileConfiguration file = Main.main.getConfig();
-	private static String pathCompte = "Comptes.";
+	private static String pathCompte = "Accounts.";
 	private static String pathLoc = "Locations.";
-	private static String pathDelay = "Delai";
+	private static String pathDelay = "Delay";
 
 	public static void RetirerXP(Player p)
 	{
 		if (!file.contains(pathCompte + p.getName()))
-			Main.SendMsgError(p, "Vous n'avez plus d'xp sur votre compte");
+			Main.SendMsgError(p, "You don't have enough xp in your account");
 		else if (!TimeManager.canAccess(p))
-			Main.SendMsgError(p, "Vous devez attendre avant de pouvoir utiliser votre compte");
+			Main.SendMsgError(p, "You must wait before use your account");
 		else
 		{
 			p.giveExp(file.getInt(pathCompte + p.getName()));
 			file.set(pathCompte + p.getName(), null);
-			Main.SendMsg(p, "XP retiré de votre compte");
+			Main.SendMsg(p, "XP withdrawn from your account");
 		}
 		
 		Main.main.saveConfig();
@@ -43,19 +43,19 @@ public class ConfigManager {
 		
 		if (xp == 0)
 		{
-			Main.SendMsgError(p, "Vous n'avez pas d'xp à déposer");
+			Main.SendMsgError(p, "You don't have xp to deposit");
 			return;
 		}
 		else if (!TimeManager.canAccess(p))
 		{
-			Main.SendMsgError(p, "Vous devez attendre avant de pouvoir utiliser votre compte");
+			Main.SendMsgError(p, "You must wait before use your account");
 			return;
 		}
 		
 		file.set(pathCompte + p.getName(), xp + file.getInt(pathCompte + p.getName(), 0));
 		p.setExp(0);
 		p.setLevel(0);
-		Main.SendMsg(p, "XP déposé sur votre compte");
+		Main.SendMsg(p, "XP deposited in your account");
 		
 		Main.main.saveConfig();
 	}
@@ -68,8 +68,8 @@ public class ConfigManager {
 	public static int totalXP()
 	{
 		int total = 0;
-		for (String s : file.getConfigurationSection("Comptes").getKeys(false)) 
-			total += file.getInt("Comptes." + s);
+		for (String s : file.getConfigurationSection("Accounts").getKeys(false)) 
+			total += file.getInt("Accounts." + s);
 		return total;
 	}
 	
@@ -144,7 +144,7 @@ public class ConfigManager {
 		try
 		{
 			Sign sign = (Sign) loc.getBlock().getState();
-			if (ChatColor.stripColor(sign.getLine(0)).equalsIgnoreCase("[Banque à XP]"))
+			if (ChatColor.stripColor(sign.getLine(0)).equalsIgnoreCase("[XP Bank]"))
 			{
 				return true;
 			}

@@ -20,11 +20,11 @@ public class BankListener implements Listener {
 	public void onSignChange (SignChangeEvent e)
 	{
 		if (e.getLine(0).equalsIgnoreCase("[XPBank]") && e.getPlayer().hasPermission("xpbank.place") && SignManager.registerSign(e.getBlock().getLocation())) {
-            e.setLine(0, ChatColor.DARK_BLUE + "[Banque à XP]");
-            e.setLine(1, ChatColor.YELLOW + "" + ConfigManager.nombreComptes() + ChatColor.GREEN + " comptes");
+            e.setLine(0, ChatColor.DARK_BLUE + "[XP Bank]");
+            e.setLine(1, ChatColor.YELLOW + "" + ConfigManager.nombreComptes() + ChatColor.GREEN + " accounts");
             e.setLine(2, ChatColor.GREEN + "Total XP :");
             e.setLine(3, ChatColor.YELLOW + "" + ConfigManager.totalXP());
-            Main.SendMsg(e.getPlayer(), "Panneau à XP posé !");
+            Main.SendMsg(e.getPlayer(), "Sign created !");
         }
 	}
 	
@@ -44,7 +44,7 @@ public class BankListener implements Listener {
 		
 		if (!e.getPlayer().hasPermission("xpbank.place"))
 		{
-			Main.SendMsgError(e.getPlayer(), "Vous n'avez pas la permission de casser ce panneau");
+			Main.SendMsgError(e.getPlayer(), "You don't have permission to break this sign");
 			e.setCancelled(true);
 			SignManager.RefreshSigns();
 			return;
@@ -58,7 +58,7 @@ public class BankListener implements Listener {
 	public void onPlayerInteract (PlayerInteractEvent e)
 	{
 		try {@SuppressWarnings("unused")
-		BlockState block = e.getClickedBlock().getState();} catch (Exception ex) {return;} // Vérifie si il s'agit d'une interaction avec un bloc
+		BlockState block = e.getClickedBlock().getState();} catch (Exception ex) {return;} // Verify if there is an interaction with a bloc
 		
 		if (!(e.getClickedBlock().getState() instanceof Sign)) return;
 		
